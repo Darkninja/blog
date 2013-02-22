@@ -1,0 +1,36 @@
+extends layout
+
+block content
+	h2 New
+	form(method="post", action="/new", class="form-horizontal")
+		div(class="control-group")
+			label(class="control-label", for="title") Title
+			div(class="controls")	
+				input(type="text", name="title", id="title", placeholder="Title")
+		div(class="control-group")
+			label(class="control-label", for="slug") Slug
+			div(class="controls")
+				input(type="text", name="slug", id="slug", placeholder="Slug")
+		div(class="control-group")
+			label(class="control-label", for="body") Body
+			div(class="controls")
+				textarea(name="body", id="body", placeholder="Body", rows="5")
+		div(class="control-group")
+			div(class="controls")
+				button(type="submit", class="btn") Post
+	h2 Posts
+	table(class="table table-striped")
+		tr
+			th Title
+			th Slug
+			th Delete?
+		for post in posts	
+			tr
+				td #{post.title}
+				td #{post.slug}
+				td 
+					a(href="/delete/#{post.slug}", class="btn btn-danger btn-mini") 
+						i(class="icon-minus-sign")
+						|   Delete
+				
+	

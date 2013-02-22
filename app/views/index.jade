@@ -1,5 +1,8 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	h2 Posts
+	- for post in posts
+		p
+			h4
+				a(href="/posts/#{post.slug}") #{post.title}

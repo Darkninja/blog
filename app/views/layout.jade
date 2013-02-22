@@ -1,7 +1,35 @@
 doctype 5
-html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+html(lang="en")
+	head
+		title= title
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		link(rel='stylesheet', href="/stylesheets/bootstrap.min.css")
+		link(rel='stylesheet', href="/stylesheets/font-awesome.min.css")
+		script(src="http://code.jquery.com/jquery.js")
+		script(src="/javascripts/bootstrap.min.js")
+	body
+		div(class="navbar navbar-inverse")
+			div(class="navbar-inner")
+				a(class="brand", href="/") 
+					strong Andrew's Blog
+				a(class="btn btn-primary span1", href="https://www.facebook.com/n0rder")
+					i(class="icon-facebook icon-large")
+				a(class="btn btn-info span1", href="https://twitter.com/n4turalorder")
+					i(class="icon-twitter icon-large")
+				a(class="btn btn-info span1", href="http://www.linkedin.com/in/andrewsking/")
+					i(class="icon-linkedin-sign icon-large")
+				a(class="btn span1", href="https://github.com/an0nym0use")
+					i(class="icon-github icon-large")
+				if user
+					a(class="btn btn-danger pull-right", href="/logout") Logout
+				else
+					a(class="btn btn-inverse pull-right", href="/login") Are you me? Login! 
+		div(class="container")
+			div(class="row")
+				div(class="span3")
+					h2 About me
+					br
+					img(src="/images/snapshot.jpg", class="img-rounded", height="140", width="180")
+					h4 I blog about whatever I'm working on, life, code, travel.
+				div(class="span8 offset1")
+					block content
