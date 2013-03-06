@@ -21,7 +21,8 @@ html(lang="en")
 				a(class="btn span1", href="https://github.com/an0nym0use")
 					i(class="icon-github icon-large")
 				if user
-					a(class="btn btn-danger pull-right", href="/logout") Logout
+					a(class="btn pull-right span1", href="/dashboard") Dashboard
+					a(class="btn btn-danger pull-right span1", href="/logout") Logout
 				else
 					a(class="btn btn-inverse pull-right", href="/login") Are you me? Login! 
 		div(class="container")
@@ -31,5 +32,17 @@ html(lang="en")
 					br
 					img(src="/images/snapshot.jpg", class="img-rounded", height="140", width="180")
 					h4 I blog about whatever I'm working on, life, code, travel.
+					h5 If you are looking for my resume, find it <a href="http://resume.andrewsking.com">here</a>.
 				div(class="span8 offset1")
 					block content
+		div
+			| <script type="text/javascript">
+			| 	var _gaq = _gaq || [];
+			| _gaq.push(['_setAccount', 'UA-38694999-1']);
+			| _gaq.push(['_trackPageview']);
+			| (function() {
+			|	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			| 	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			| 	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			| })();
+			| </script>

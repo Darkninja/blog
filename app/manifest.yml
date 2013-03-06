@@ -10,7 +10,7 @@ applications:
         exec: 
     infra: ap-aws
     url: ${name}.${target-base}
-    mem: 512M
+    mem: 256M
     instances: 1
     services:
       mongodb-blog:

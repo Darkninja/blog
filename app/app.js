@@ -92,6 +92,7 @@ app.configure(function(){
 	app.use(passport.initialize());
 	app.use(passport.session());
 	app.use(app.router);
+	app.locals.pretty = true;
 });
 
 app.configure('development', function(){
@@ -148,7 +149,13 @@ app.get('/dashboard', ensureAuthenticated, function(req, res){
 		if(err){
 			res.send("500: Server error.")
 		} else {
-			res.render('dashboard', {title: 'Blog', user: req.user, posts: posts});
+			res.render('dashboard', {
+				title: 'Blog', 
+				user: req.user, 
+				editPost: {
+					isEdit: false
+				},
+				posts: posts.reverse()});
 		}
 	});
 });
@@ -168,17 +175,47 @@ app.get('/posts/:post', routes.posts);
 app.post('/new', ensureAuthenticated, function(req, res){
 		var post = new Post({
 			title: req.param('title'),
-			slug: req.param('slug'),
+			slug: makeSlug(req.param('title')),
 			body: req.param('body'),
 			date: moment().format('LL')
 		});
 		post.save();
 		res.redirect('/');
 });
+app.get('/edit/:post', ensureAuthenticated, function(req, res){
+	Post.find(function(err, posts){
+		if(err){
+			res.send("500: Server error.")
+		} else {
+			res.render('dashboard', {
+				title: 'Blog', 
+				user: req.user,
+				editPost: {
+					isEdit: true,
+					title: req.post.title,
+					slug: req.post.slug,
+					body: req.post.body
+				}, 
+				posts: posts.reverse()});
+		}
+	});
+});
+app.post('/save/:post', ensureAuthenticated, function(req, res){
+	req.post.title = req.param('title');
+	req.post.slug = makeSlug(req.param('title'));
+	req.post.body = req.param('body');
+	req.post.save();
+	res.redirect('/dashboard');
+});
 app.get('/delete/:post', ensureAuthenticated, function(req, res){
 		Post.remove({slug: req.post.slug}, function(err){});
 		res.redirect('/dashboard');
 });
+
+function makeSlug(title){
+	var slug = title.toLowerCase().replace(/\W/g,'').replace(/\s/g,"-");
+	return slug;
+};
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
