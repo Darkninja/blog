@@ -86,7 +86,7 @@ app.configure(function(){
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(express.cookieParser('random secret key'));
-	app.use(express.session({ cookie: { maxAge: 60000 }}));
+	app.use(express.session({ cookie: { maxAge: 3600000 }}));
 	app.use(require('stylus').middleware(__dirname + '/public'));
 	app.use(express.static(path.join(__dirname, 'public')));
 	app.use(passport.initialize());
@@ -213,7 +213,7 @@ app.get('/delete/:post', ensureAuthenticated, function(req, res){
 });
 
 function makeSlug(title){
-	var slug = title.toLowerCase().replace(/\W/g,'').replace(/\s/g,"-");
+	var slug = title.toLowerCase().replace(/\s/g,"_").replace(/\W/g,'');
 	return slug;
 };
 

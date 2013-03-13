@@ -1,5 +1,14 @@
 extends layout
 
+block extra_head
+	script(type='text/javascript', src='//cdnjs.cloudflare.com/ajax/libs/tinymce/3.5.8/tiny_mce.js')
+	script(type='text/javascript')
+		tinyMCE.init({
+			mode: "textareas",
+			theme: "simple"
+		});
+
+
 block content
 	h2 New
 	- if (editPost.isEdit)
